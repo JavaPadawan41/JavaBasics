@@ -20,13 +20,10 @@ public class GuessingGame
 		Random rnd = new Random();
 		int actual = rnd.nextInt(100) + 1;
 		int guess;
-		boolean isCorrect;
+		boolean isCorrect, shouldContinue;
 		int i = 0;
 		String errMsg = String.format("Invalid Guess. Must be an integer between %d and %d", MIN_VALUE, MAX_VALUE);
 		String prompt, incorrectResponse, userInput;
-		
-		boolean shouldContinue;
-		
 		
 		do
 		{
