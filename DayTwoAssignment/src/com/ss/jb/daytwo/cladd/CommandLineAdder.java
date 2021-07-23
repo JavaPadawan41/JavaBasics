@@ -1,8 +1,6 @@
 package com.ss.jb.daytwo.cladd;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 /**
  * CommandLineAdder.java
@@ -19,11 +17,10 @@ public class CommandLineAdder
 	 */
 	public static void main(String[] args)
 	{
-		ArrayList<Double> parsedArgs = new ArrayList<Double>(args.length);
+		
 		double sum;
 		String stringSum;
 		String message = "";
-		int i;
 		
 		//Three possibilities
 		//1 - No args provided. In that case, simply output a message to the user stating as much

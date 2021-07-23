@@ -5,7 +5,6 @@ package com.ss.jb.daythree.walkdir;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.Scanner;

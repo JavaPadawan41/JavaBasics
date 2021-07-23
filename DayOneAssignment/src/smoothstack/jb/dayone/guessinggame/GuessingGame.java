@@ -85,6 +85,7 @@ public class GuessingGame
 		//Prompt and attempt to get input
 		System.out.print(prompt);
 		guess = kbd.nextLine();
+		kbd.close();
 		
 		return guess;
 	}
