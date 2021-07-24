@@ -3,6 +3,7 @@ package com.ss.jb.dayfive;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /***
  * StringFilterDemo.java
@@ -33,6 +34,6 @@ public class StringFilterDemo
 		//The replaceAll method will drop from the string anything that isn't
 		//A letter so we can count up only letter characters
 		return Arrays.stream(args).filter((s) -> s.startsWith("a") && 
-				p.matcher(s).replaceAll("").length() == 3).toList();
+				p.matcher(s).replaceAll("").length() == 3).collect(Collectors.toList());
 	}
 }

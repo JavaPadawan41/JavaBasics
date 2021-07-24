@@ -1,0 +1,42 @@
+1.	 Which class would you use to store your birthday in years, months, days, seconds, and nanoseconds? java.time.LocalDateTime
+2.	 Given a random date, how would you find the date of the previous Thursday?
+		- Construct a LocalDate object (ld) for the provided date (LocalDate.of() method is useful here)
+		- use the ld.getDayOfWeek() method to extract the day of the week (dw)
+		- if dw is Thursday, the number of days to subtract to get previous thursday (toSubtract) = 7. Otherwise:
+			- Use the DayOfWeek.getValue() method to get the numerical values for the day of the provided date (cdNum) and of thursday (thNum)
+			- Apply the following formula to determine the number of days to subtract to get the current thursday:
+				toSubtract = (7 + (cdNum - thNum)) % 7
+			- if the result from above = 0, toSubtract = 7. Otherwise, leave value unchanged
+		- use the ld.minus() method to subtract the value obtained above and get the date of the previous thursday
+			**How it works
+			First thing - if dw is a day that comes before thursday, then we need to 'wrap around' to get back to the previous thursday
+			Second thing - If we need to wrap around, then we know we need modular division at some point and our modulus in this case is 7 (7 days per week)
+			So, we need the distance between the current date and the previous thursday mod 7
+			Easy way to achieve this is to calculate the distance between the day we have and thursday, then add 7 and mod the result by 7
+				- a = (cdNum - thNum) <- If cdNum comes before thursday, this is negative. If cdNum comes after thursday, this is positive
+				- b = 7 + a <- if cdNum comes before thursday, this returns a positive integer on the interval [0, 6]. If cdNum comes after thursday, it returns a positive integer on the interval [8, 9]
+				toSubtrac = b % 7 <- If cdNum comes before thursday, then b < 7 and b % 7 = b, which tells how many days to wrap around to get back to thursday. if b > 7, then b % 7 = 7 - b, which tells the number of days back to the previous thursday
+				
+CODE FOR #2:
+	public LocalDate getPreviousThursday(int year, int month, int dayOfMonth)
+	{
+		LocalDate ld = LocalDate.of(year, month, dayOfMonth);
+		
+		DayOfWeek dw = ld.getDayOfWeek();
+		int toSub = dw == DayOfWeek.THURSDAY ? 7 : 
+			(7 + (dw.getValue() - DayOfWeek.THURSDAY.getValue())) % 7;
+		
+		LocalDate prevThurs = ld.minusDays(toSub);
+		
+		return prevThurs;
+	}
+
+3. A ZoneId uniquely identifies a specific time zone and provides the logic by which an Instant can be converted to a LocalDateTime object
+   A ZoneOffset represents the difference in time between a time zone's local time and UTC time, in hours/minutes
+   
+4. Given an instant object (instant) and a ZoneID (zid), you may call the method instant.atZone(zid) to convert instant to ZonedDateTime
+   Given an instant object (instant) and the name of a Zone "NameOfZone", you may call the method instant.atZone(ZoneId.of("NameOfZone")) to convert instant to ZonedDateTime
+   
+   Given a ZonedDateTime object (zdt), you may call the method zdt.toInstant()
+   
+ For 5, 6, 7, see DateTimeDemo.java
