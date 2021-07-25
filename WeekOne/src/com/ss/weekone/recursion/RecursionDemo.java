@@ -6,7 +6,7 @@ public class RecursionDemo
 	{
 		boolean canAttain;
 		int i = start + 1;
-		int newTarget;
+		int newTarget; //newTarget would be the target to hit if we include the current group
 		
 		//What is the trivial case?
 		//There are two, as I see it - First, there is one unchecked entry in the array
@@ -23,6 +23,12 @@ public class RecursionDemo
 		//In that case, the trivial cases are as follows:
 		//1 - The unchecked portion of the array is down to a single value and that value either equals the target or not
 		//2 - The unchecked portion of the array is down to a group of adjacent identical values and they either sum to the target or not
+		
+		//The key insight is one of groups
+		//A group is a collection of adjacent entries with the same value (can have group size of 1)
+		//For any group, we can choose to take it or leave it
+		//So, for a group, we need to determine if we can reach the target by taking it or leaving it
+		//
 		
 		//array of length 1
 		
