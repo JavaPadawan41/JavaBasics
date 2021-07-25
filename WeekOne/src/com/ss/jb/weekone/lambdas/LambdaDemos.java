@@ -9,18 +9,18 @@ public class LambdaDemos
 	 * Returns a lambda expression that will determine whether an integer is odd
 	 * @return Function<Integer, Boolean>
 	 */
-	public Function<Integer, Boolean> isOdd()
+	public static Function<Integer, Boolean> isOdd()
 	{
-		return (x) -> x % 2 == 1;
+		return (x) -> Math.abs(x % 2) == 1;
 	}
 	
 	/***
 	 * Returns a lambda expression that will determine whether an integer is prime
 	 * @return Function<Integer, Boolean>
 	 */
-	public Function<Integer, Boolean> isPrime()
+	public static Function<Integer, Boolean> isPrime()
 	{
-		//There is no known method to efficiently determine whehter a number is prime.
+		//There is no known method to efficiently determine whether a number is prime.
 		//The most widely known algorithm is as follows:
 		//n == 1 ? not prime
 		// n % 2 == 0 ? not prime
@@ -59,15 +59,16 @@ public class LambdaDemos
 		
 		//Try to condense the above into a single-liner using streams
 		return (x) -> x == 1 || x % 2 == 0 ? false : 
-			IntStream.iterate(3, i -> i <= Math.sqrt(x), i -> i + 3).noneMatch(i -> x % i == 0);
+			IntStream.iterate(3, i -> i <= Math.sqrt(x), i -> i + 2).noneMatch(i -> x % i == 0);
 	}
 	
 	/***
 	 * Returns a lambda that determines whether an integer is a palindrome
 	 * @return
 	 */
-	public Function<Integer, Boolean> isPalindrome()
+	public static Function<Integer, Boolean> isPalindrome()
 	{
-		return (x) -> Integer.valueOf((new StringBuilder(String.valueOf(x))).reverse().toString()) == x;
+		
+		return (x) -> Integer.valueOf((new StringBuilder(String.valueOf(Math.abs(x)))).reverse().toString()) == Math.abs(x);
 	}
 }

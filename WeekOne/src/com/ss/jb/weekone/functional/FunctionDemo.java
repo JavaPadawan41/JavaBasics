@@ -12,7 +12,7 @@ public class FunctionDemo
 	 */
 	public List<Integer> rightDigit(List<Integer> values)
 	{
-		return values.stream().map((x) -> x % 10).collect(Collectors.toList());
+		return values.stream().map((x) -> Math.abs(x % 10)).collect(Collectors.toList());
 	}
 	
 	/***
