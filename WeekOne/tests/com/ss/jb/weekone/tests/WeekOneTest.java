@@ -82,6 +82,37 @@ public class WeekOneTest
 	}
 	
 	@Test
+	public void testNoX()
+	{
+		//Test cases from the asssignment
+		FunctionDemo fd = new FunctionDemo();
+		
+		assertEquals(fd.noX(Arrays.asList(new String[] {"ax", "bb", "cx"})), 
+				Arrays.asList(new String[] {"a", "bb", "c"}));
+		
+		assertEquals(fd.noX(Arrays.asList(new String[] {"xxax", "xbxbx", "xxcx"})), 
+				Arrays.asList(new String[] {"a", "bb", "c"}));
+		
+		assertEquals(fd.noX(Arrays.asList(new String[] {"x"})), 
+				Arrays.asList(new String[] {""}));
+		
+		//Test with empty array
+		assertEquals(fd.noX(Arrays.asList(new String[] {})), 
+				Arrays.asList(new String[] {}));
+		
+		//Test with capitals
+		assertEquals(fd.noX(Arrays.asList(new String[] {"Ax", "bB", "cX"})), 
+				Arrays.asList(new String[] {"A", "bB", "c"}));
+		
+		assertEquals(fd.noX(Arrays.asList(new String[] {"XXaX", "XBXBX", "XXcX"})), 
+				Arrays.asList(new String[] {"a", "BB", "c"}));
+		
+		assertEquals(fd.noX(Arrays.asList(new String[] {"X"})), 
+				Arrays.asList(new String[] {""}));
+		
+	}
+	
+	@Test
 	public void testRecursion()
 	{
 		RecursionDemo rd = new RecursionDemo();
