@@ -51,10 +51,6 @@ public class WeekOneTest
 	public void testIsPalindrome()
 	{
 		Function<Integer, Boolean> ipf = LambdaDemos.isPalindrome();
-		//Apply on negative numbers
-		assertFalse(ipf.apply(-123456789));
-		assertTrue(ipf.apply(-123454321));
-		assertTrue(ipf.apply(-1));
 		
 		//Test on zero
 		assertTrue(ipf.apply(0));

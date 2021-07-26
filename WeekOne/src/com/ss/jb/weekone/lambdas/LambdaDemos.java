@@ -1,10 +1,12 @@
 package com.ss.jb.weekone.lambdas;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
 public class LambdaDemos
 {
+
 	/***
 	 * Returns a lambda expression that will determine whether an integer is odd
 	 * @return Function<Integer, Boolean>
@@ -68,7 +70,27 @@ public class LambdaDemos
 	 */
 	public static Function<Integer, Boolean> isPalindrome()
 	{
+		/***
+		 * Below should reverse the order of digits in an unsigned integer
+		int tmp = x;
+		int reversed = 0;
+		int power;
+		int remainder;
 		
-		return (x) -> Integer.valueOf((new StringBuilder(String.valueOf(Math.abs(x)))).reverse().toString()) == Math.abs(x);
+		for (power = 10; power <= x * 10; power *= 10)
+		{
+			remainder = tmp % 10 ;
+			tmp = (tmp - remainder) / 10;
+			reversed = (reversed * 10) + remainder;
+			//reversed = (reversed * 10) + remainder * 10;
+			//System.out.printf("%d, %d, %d\n", tmp, remainder, reversed);
+		}
+		*/
+		
+		//Should be the functional version of above
+		return (a) -> IntStream.iterate(10, p -> p <= 10 * a, p -> p * 10)
+				.map((i) -> (a % i) / (i / 10))
+				.reduce(0, (s, e) -> (s * 10) + e) == a;
+		
 	}
 }
