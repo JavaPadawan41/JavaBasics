@@ -2,39 +2,25 @@ package com.ss.jb.dayfive;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.Year;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class DateTimeDemo
 {
-
-	public static void main(String[] args)
-	{
-		DateTimeDemo dtd = new DateTimeDemo();
-		
-		//dtd.countMonthlyDays(1999);
-		dtd.listMondays(7);
-	}
 	
 	/***
 	 * Lists the number of days in each month of the specified year
 	 * @param year
 	 */
-	public void countMonthlyDays(int year)
-	{
-		YearMonth month;
-		int daysInMonth;
-		String monthName;
-		
-		for (int i = 1; i < 13; i++)
-		{
-			month = YearMonth.of(year, i);
-			daysInMonth = month.lengthOfMonth();
-			monthName = Month.of(i).getDisplayName(TextStyle.FULL, Locale.US);
-			System.out.printf("In the year %d, the month of %s has %d days\n", year, monthName, daysInMonth);
-		}
+	public List<Integer> countMonthlyDays(int year)
+	{	
+		return IntStream.rangeClosed(1, 12).map(i -> YearMonth.of(year, i).lengthOfMonth())
+				.boxed().collect(Collectors.toList());
 	}
 	
 	/***
@@ -62,7 +48,7 @@ public class DateTimeDemo
 	 * @param d The date from which to locate the next monday
 	 * @return Date of the following monday
 	 */
-	public LocalDate getNextMonday(LocalDate d)
+	private LocalDate getNextMonday(LocalDate d)
 	{
 		LocalDate nextMonday;
 		DayOfWeek dw = d.getDayOfWeek();
@@ -73,6 +59,11 @@ public class DateTimeDemo
 		return nextMonday;
 	}
 	
+	/***
+	 * Determines whether the LocalDate d represents a friday the 13th
+	 * @param d LocalDate to check
+	 * @return boolean
+	 */
 	public boolean isFridayTheThirteenth(LocalDate d)
 	{
 		return d.getDayOfWeek() == DayOfWeek.FRIDAY && d.getDayOfMonth() == 13;
@@ -82,23 +73,27 @@ public class DateTimeDemo
 	 * lists all the mondays occurring in month of the curent year
 	 * @param month The month to be scanned for mondays
 	 */
-	public void listMondays(int month)
+	public List<LocalDate> listMondays(int month)
 	{
+		List<LocalDate> mondays = new ArrayList<LocalDate>();
+		
+		
 		//Get the first day of the month and get the month itself so we can iterate over days
-		LocalDate date = YearMonth.now().atDay(1);
+		LocalDate date = YearMonth.of(LocalDate.now().getYear(), month).atDay(1);
 		Month cm = date.getMonth();
 		
 		//Move to the next monday, if not already on a monday
 		if (date.getDayOfWeek() != DayOfWeek.MONDAY)
 			date = getNextMonday(date);
-		
+				
 		//Keep moving to the next monday as long as we are still in the same month
 		while (cm == date.getMonth())
 		{
-			System.out.println(date.toString());
-			date = getNextMonday(date);
-			
+			mondays.add(date);	
+			date = this.getNextMonday(date);	
 		}
+		
+		return mondays;
 	}
 
 }
