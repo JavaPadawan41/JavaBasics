@@ -2,7 +2,6 @@ package com.ss.jb.dayfive;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /***
@@ -13,10 +12,6 @@ import java.util.stream.Collectors;
  */
 public class StringFilterDemo
 {
-	//Regex will find anything that's not a letter character, 
-	//which we can use to count the number of letters in the string
-	private static Pattern p = Pattern.compile("[^A-Za-z]", 
-			Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
 	
 	/***
 	 * Selects from the sequence args only those strings that begin with 'a' and have exactly 3 letters
@@ -33,7 +28,7 @@ public class StringFilterDemo
 		
 		//The replaceAll method will drop from the string anything that isn't
 		//A letter so we can count up only letter characters
-		return Arrays.stream(args).filter((s) -> s.startsWith("a") && 
-				p.matcher(s).replaceAll("").length() == 3).collect(Collectors.toList());
+		return Arrays.stream(args).filter(s -> s.startsWith("a") &&
+				s.replaceAll("[^A-Za-z]", "").length() == 3).collect(Collectors.toList());
 	}
 }
